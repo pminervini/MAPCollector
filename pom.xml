@@ -5,13 +5,16 @@
 	<groupId>com.neuralnoise.map</groupId>
 	<artifactId>MAPCollector</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>MAPCollector</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<!-- Generic properties -->
+		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Guava -->
 		<guava.version>16.0.1</guava.version>
@@ -27,10 +30,15 @@
 
 		<!-- Jackson -->
 		<jackson2.version>2.3.2</jackson2.version>
+		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 
-		<!-- ActiveMQ -->
-		<activemq.version>5.8.0</activemq.version>
-		
+		<!-- Spring -->
+		<spring-framework.version>4.0.1.RELEASE</spring-framework.version>
+		<spring.integration.version>2.2.5.RELEASE</spring.integration.version>
+
+		<!-- Integration -->
+		<activemq.version>5.7.0</activemq.version>
+
 		<!-- Logging -->
 		<logback.version>1.1.0</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -63,20 +71,64 @@
 			<artifactId>rome</artifactId>
 			<version>${rome.version}</version>
 		</dependency>
-		
+
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson2.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>${jackson2.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson2.version}</version>
+		</dependency>
+
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
+		<!-- Spring Integration -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-jms</artifactId>
+			<version>${spring.integration.version}</version>
+		</dependency>
+
 
 		<!-- ActiveMQ -->
 		<dependency>
@@ -108,6 +160,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -115,6 +168,21 @@
 				<configuration>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<server>tomcat-development-server</server>
+					<port>9967</port>
+					<path>/map</path>
+					<systemProperties>
+						<JAVA_OPTS>-Xms256m -Xmx256m -XX:MaxPermSize=256m</JAVA_OPTS>
+					</systemProperties>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
