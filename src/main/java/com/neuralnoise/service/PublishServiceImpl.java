@@ -1,14 +1,12 @@
 package com.neuralnoise.service;
 
-import com.neuralnoise.model.Message;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.integration.MessageChannel;
-import org.springframework.integration.message.GenericMessage;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+
+import com.neuralnoise.model.Message;
 
 @Service
 public class PublishServiceImpl implements PublishService {

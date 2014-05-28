@@ -1,15 +1,15 @@
 package com.neuralnoise.web;
 
 import org.springframework.stereotype.Controller;
-
-import com.neuralnoise.model.ServiceStatus;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.neuralnoise.model.ServiceStatus;
+
 @Controller
 public class StatusController {
+	
 	@RequestMapping(value = "/status", method = RequestMethod.GET)
 	@ResponseBody
 	public ServiceStatus getStatus() {
