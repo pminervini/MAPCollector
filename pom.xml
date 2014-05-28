@@ -11,8 +11,9 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+	
 		<!-- Generic properties -->
-		<java.version>1.7</java.version>
+		<java.version>1.6</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -35,9 +36,15 @@
 		<!-- Spring -->
 		<spring-framework.version>4.0.1.RELEASE</spring-framework.version>
 		<spring.integration.version>2.2.5.RELEASE</spring.integration.version>
+		<servlet-api.version>2.5</servlet-api.version>
 
 		<!-- Integration -->
 		<activemq.version>5.7.0</activemq.version>
+
+		<!-- OpenNLP -->
+		<opennlp.tools.version>1.5.3</opennlp.tools.version>
+		<opennlp.uima.version>1.5.3</opennlp.uima.version>
+		<opennlp.maxent.version>3.0.3</opennlp.maxent.version>
 
 		<!-- Logging -->
 		<logback.version>1.1.0</logback.version>
@@ -108,7 +115,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
 		<dependency>
@@ -116,6 +138,13 @@
 			<artifactId>spring-jms</artifactId>
 			<version>${spring-framework.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
 
 		<!-- Spring Integration -->
 		<dependency>
@@ -129,12 +158,28 @@
 			<version>${spring.integration.version}</version>
 		</dependency>
 
-
 		<!-- ActiveMQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
 			<version>${activemq.version}</version>
+		</dependency>
+
+		<!-- OpenNLP -->
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-tools</artifactId>
+			<version>${opennlp.tools.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-uima</artifactId>
+			<version>${opennlp.uima.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-maxent</artifactId>
+			<version>${opennlp.maxent.version}</version>
 		</dependency>
 
 		<!-- Logging with SLF4J & LogBack -->
@@ -159,8 +204,19 @@
 	</dependencies>
 
 	<build>
-		<plugins>
+		<finalName>MAPCollector</finalName>
+		<defaultGoal>install</defaultGoal>
 
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/java</directory>
+			</testResource>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
