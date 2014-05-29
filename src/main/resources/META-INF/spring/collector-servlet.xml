@@ -3,10 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
                 http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
-                http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+                http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+                http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<int:annotation-config />
 
 	<!-- Component scan to find all Spring components -->
 	<context:component-scan base-package="com.neuralnoise" />
@@ -27,48 +31,24 @@
 		</property>
 	</bean>
 
-	<int:poller default="true" fixed-rate="5000" />
-
-	<!-- Define a channel to communicate out to a JMS Destination -->
-	<int:channel id="mapChannel" />
-	
-	<!-- Create a channel for a listener that will consume messages -->
-	<int:channel id="listenerChannel" />
-	
-	<int:channel id="getPayloadChannel" />
-	
 	<!-- Define the ActiveMQ connection factory -->
 	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="tcp://localhost:61616" />
 	</bean>
 
-	<!-- Defines an adapter that routes mapChannel messages to the map topic -->
-	<int-jms:outbound-channel-adapter
-		channel="mapChannel" connection-factory="connectionFactory"
-		destination-name="topic.map" pub-sub-domain="true" />
+	<int:gateway id="collector" service-interface="com.neuralnoise.listener.RequestHandler" />
+	
+	<int:channel id="messages" />
+	
+	<int:channel id="requests"><int:queue capacity="10"/></int:channel>
+	
+	<int:channel id="requestProcessor" />
+	<int:channel id="answers" />
 
-	<!-- Defines an adapter that routes map topic messages to listenerChannel -->
-	<int-jms:inbound-channel-adapter
-		channel="listenerChannel" connection-factory="connectionFactory"
-		destination-name="topic.map" />
+	<int:bridge input-channel="requests" output-channel="requestProcessor">
+		<int:poller fixed-delay="1000" />
+	</int:bridge>
 
-	<!-- mapChannel -> t.map ; t.map -> listenerChannel -->
-	<!-- payloadChannel -> t.map ; payloadChannel => listenerChannel -->
-
-	<!-- Forwards all map topic messages from getPayloadChannel to the map topic -->
-	<int-jms:message-driven-channel-adapter
-		id="messageDrivenAdapter" connection-factory="connectionFactory"
-		channel="getPayloadChannel" destination-name="topic.map"
-		pub-sub-domain="true" />
-
-	<!-- use messageListenerImpl.processMessage on messages on listenerChannel -->
-	<int:service-activator input-channel="listenerChannel"
-		ref="messageListenerImpl" method="processMessage" />
-
-	<!-- Messages from getPayloadChannel to listenerChannel are processed by
-		retrievePayloadServiceImpl.getPayload -->
-	<int:service-activator input-channel="getPayloadChannel"
-		output-channel="listenerChannel" ref="retrievePayloadServiceImpl"
-		method="getPayload" />
+	<int-stream:stdout-channel-adapter id="answers" />
 
 </beans>

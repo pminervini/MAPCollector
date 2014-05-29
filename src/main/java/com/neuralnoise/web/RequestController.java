@@ -10,21 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuralnoise.service.PublishService;
+import com.neuralnoise.model.Request;
+import com.neuralnoise.service.RequestService;
 
 @Controller
-public class MessageController {
+public class RequestController {
 	
 	@Autowired
-	private PublishService publishService;
+	private RequestService requestService;
 
-	@RequestMapping(value = "/message", method = RequestMethod.POST)
+	@RequestMapping(value = "/request", method = RequestMethod.POST)
 	@ResponseBody
-	public void postMessage(@RequestBody com.neuralnoise.model.Message message, HttpServletResponse response) {
-		// Publish the message
-		publishService.send(message);
-
-		// Set the status to 201 because we created a new message
+	public void postMessage(@RequestBody Request request, HttpServletResponse response) {
+		System.out.println("Sending request: " + request + " ..");
+		requestService.send(request);
 		response.setStatus(HttpStatus.CREATED.value());
 	}
 
