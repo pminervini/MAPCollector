@@ -5,18 +5,22 @@ import javax.jms.DeliveryMode;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.springframework.integration.message.GenericMessage;
+
+import com.neuralnoise.model.Request;
+import com.neuralnoise.model.Request.RequestType;
 
 public class Sender {
 	
 	private final static String[] NAMES = { 
-		//"topic",
-		"topic.myTopic",
-		//"topicChannel",
-		//"listenerChannel"	
+		"collector",
+		"messages",
+		"requests"
 	};
 	
 	public static void main(String[] args) throws JMSException {
@@ -38,15 +42,19 @@ public class Sender {
 
 		// Create the destination (Topic or Queue)
 		//Destination destination = session.createQueue(queueName);
-		Destination destination = session.createTopic(name);
+		Destination destination = session.createQueue(name);
 
 		// Create a MessageProducer from the Session to the Topic or Queue
 		MessageProducer producer = session.createProducer(destination);
 		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 		// Create a messages
-		String text = "Hello world! From: " + Thread.currentThread().getName();
-		TextMessage message = session.createTextMessage(text);
+		//String text = "Hello world! From: " + Thread.currentThread().getName();
+		//String text = "{\"name\":\"NAME\",\"requestType\":\"CREATE\",\"body\":\"BODY\"}";
+		//TextMessage message = session.createTextMessage(text);
+		
+		Request request = new Request("NAME", RequestType.CREATE, "BODY");
+		ObjectMessage message = session.createObjectMessage(request);
 
 		// Tell the producer to send the message
 		System.out.println("Sent message: " + message.hashCode() + " : " + Thread.currentThread().getName());

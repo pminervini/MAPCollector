@@ -37,10 +37,16 @@
 	</bean>
 
 	<int:gateway id="collector" service-interface="com.neuralnoise.listener.RequestHandler" />
+	<int-jms:channel id="messages" queue-name="messages" />
 	
-	<int:channel id="messages" />
-	
-	<int:channel id="requests"><int:queue capacity="10"/></int:channel>
+	<int:channel id="requests"><int:queue capacity="10" /></int:channel>
+
+<!--
+	<int-jms:inbound-channel-adapter channel="messages" destination-name="topic.collector" />
+	<int-jms:inbound-channel-adapter channel="requests" destination-name="topic.collector" />
+	<int-jms:outbound-channel-adapter channel="messages" destination-name="topic.collector" pub-sub-domain="true" />
+	<int-jms:outbound-channel-adapter channel="requests" destination-name="topic.collector" pub-sub-domain="true" />
+-->
 	
 	<int:channel id="requestProcessor" />
 	<int:channel id="answers" />
@@ -50,5 +56,7 @@
 	</int:bridge>
 
 	<int-stream:stdout-channel-adapter id="answers" />
+	
+	<int:poller default="true" fixed-rate="1000"/>
 
 </beans>
