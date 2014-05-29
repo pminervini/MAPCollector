@@ -10,14 +10,15 @@ import com.neuralnoise.model.Message;
 
 @Service
 public class PublishServiceImpl implements PublishService {
-	private static final Logger logger = Logger.getLogger(PublishServiceImpl.class);
+	
+	private static final Logger log = Logger.getLogger(PublishServiceImpl.class);
 
 	@Autowired
-	private MessageChannel topicChannel;
+	private MessageChannel mapChannel;
 
 	@Override
 	public void send(Message message) {
-		logger.info("Sending message to message channel: " + message);
-		topicChannel.send(MessageBuilder.withPayload(message.toString()).build());
+		log.info("Sending message to message channel: " + message);
+		mapChannel.send(MessageBuilder.withPayload(message.toString()).build());
 	}
 }

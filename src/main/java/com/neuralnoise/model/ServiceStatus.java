@@ -1,7 +1,7 @@
 package com.neuralnoise.model;
 
 public class ServiceStatus {
-	
+
 	public enum StatusType {
 		OK, FAILURE
 	}

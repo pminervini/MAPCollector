@@ -8,7 +8,6 @@
                 http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
                 http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
-
 	<!-- Component scan to find all Spring components -->
 	<context:component-scan base-package="com.neuralnoise" />
 
@@ -28,40 +27,46 @@
 		</property>
 	</bean>
 
-	<int:poller default="true" fixed-rate="5" />
+	<int:poller default="true" fixed-rate="5000" />
 
 	<!-- Define a channel to communicate out to a JMS Destination -->
-	<int:channel id="topicChannel" />
-
+	<int:channel id="mapChannel" />
+	
 	<!-- Create a channel for a listener that will consume messages -->
 	<int:channel id="listenerChannel" />
-
+	
+	<int:channel id="getPayloadChannel" />
+	
 	<!-- Define the ActiveMQ connection factory -->
 	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="tcp://localhost:61616" />
 	</bean>
 
-	<!-- Define an adaptor that route topicChannel messages to the myTopic topic; 
-		the outbound-channel-adapter automagically fines the configured connectionFactory 
-		bean (by naming convention -->
+	<!-- Defines an adapter that routes mapChannel messages to the map topic -->
 	<int-jms:outbound-channel-adapter
-		channel="topicChannel" connection-factory="connectionFactory"
-		destination-name="topic.myTopic" pub-sub-domain="true" />
+		channel="mapChannel" connection-factory="connectionFactory"
+		destination-name="topic.map" pub-sub-domain="true" />
 
+	<!-- Defines an adapter that routes map topic messages to listenerChannel -->
 	<int-jms:inbound-channel-adapter
 		channel="listenerChannel" connection-factory="connectionFactory"
-		destination-name="myTopic" />
+		destination-name="topic.map" />
 
+	<!-- mapChannel -> t.map ; t.map -> listenerChannel -->
+	<!-- payloadChannel -> t.map ; payloadChannel => listenerChannel -->
+
+	<!-- Forwards all map topic messages from getPayloadChannel to the map topic -->
 	<int-jms:message-driven-channel-adapter
 		id="messageDrivenAdapter" connection-factory="connectionFactory"
-		channel="getPayloadChannel" destination-name="topic.myTopic"
+		channel="getPayloadChannel" destination-name="topic.map"
 		pub-sub-domain="true" />
 
+	<!-- use messageListenerImpl.processMessage on messages on listenerChannel -->
 	<int:service-activator input-channel="listenerChannel"
 		ref="messageListenerImpl" method="processMessage" />
 
-	<int:channel id="getPayloadChannel" />
-
+	<!-- Messages from getPayloadChannel to listenerChannel are processed by
+		retrievePayloadServiceImpl.getPayload -->
 	<int:service-activator input-channel="getPayloadChannel"
 		output-channel="listenerChannel" ref="retrievePayloadServiceImpl"
 		method="getPayload" />

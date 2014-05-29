@@ -14,6 +14,7 @@ import com.neuralnoise.service.PublishService;
 
 @Controller
 public class MessageController {
+	
 	@Autowired
 	private PublishService publishService;
 

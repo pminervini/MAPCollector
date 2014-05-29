@@ -1,52 +1,60 @@
 package com.neuralnoise.model;
 
-public class Message
-{
-    public enum MessageType {
-        CREATE,
-        UPDATE,
-        DELETE
-    }
+import java.util.Map;
 
-    private String name;
-    private MessageType messageType;
-    private String body;
+import com.google.common.collect.Maps;
 
-    public Message() {
-    }
+public class Message {
+	public enum MessageType {
+		CREATE, UPDATE, DELETE
+	}
 
-    public Message(String name, MessageType messageType, String body) {
-        this.name = name;
-        this.messageType = messageType;
-        this.body = body;
-    }
+	private String name;
+	private MessageType messageType;
+	private String body;
 
-    public String getName() {
-        return name;
-    }
+	public Message() {
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public Message(String name, MessageType messageType, String body) {
+		this.name = name;
+		this.messageType = messageType;
+		this.body = body;
+	}
 
-    public MessageType getMessageType() {
-        return messageType;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getBody() {
-        return body;
-    }
+	public MessageType getMessageType() {
+		return messageType;
+	}
 
-    public void setBody(String body) {
-        this.body = body;
-    }
+	public void setMessageType(MessageType messageType) {
+		this.messageType = messageType;
+	}
 
-    public String toString()
-    {
-        return name + ", " + messageType + ", " + body;
-    }
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public String toString() {
+		return name + ", " + messageType + ", " + body;
+	}
+	
+	public Map<String, String> toMap() {
+		Map<String, String> map = Maps.newHashMap();
+		map.put("name", name);
+		map.put("messageType", messageType.toString());
+		map.put("body", body);
+		return map;
+	}
 }
