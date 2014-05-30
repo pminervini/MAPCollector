@@ -18,9 +18,9 @@ import com.neuralnoise.model.Request.RequestType;
 public class Sender {
 	
 	private final static String[] NAMES = { 
-		"collector",
+		//"collector",
 		"messages",
-		"requests"
+		//"requests"
 	};
 	
 	public static void main(String[] args) throws JMSException {

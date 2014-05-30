@@ -4,8 +4,8 @@
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                 http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
                 http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
                 http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
@@ -15,8 +15,7 @@
 	<!-- Component scan to find all Spring components -->
 	<context:component-scan base-package="com.neuralnoise" />
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="order" value="1" />
 		<property name="messageConverters">
 			<list>
@@ -31,32 +30,25 @@
 		</property>
 	</bean>
 
-	<!-- Define the ActiveMQ connection factory -->
+	<!-- http://bsnyderblog.blogspot.it/2010/02/using-spring-to-receive-jms-messages.html -->
+
+	<!-- A JMS connection factory for ActiveMQ -->
 	<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="tcp://localhost:61616" />
 	</bean>
-
-	<int:gateway id="collector" service-interface="com.neuralnoise.listener.RequestHandler" />
-	<int-jms:channel id="messages" queue-name="messages" />
 	
-	<int:channel id="requests"><int:queue capacity="10" /></int:channel>
-
-<!--
-	<int-jms:inbound-channel-adapter channel="messages" destination-name="topic.collector" />
-	<int-jms:inbound-channel-adapter channel="requests" destination-name="topic.collector" />
-	<int-jms:outbound-channel-adapter channel="messages" destination-name="topic.collector" pub-sub-domain="true" />
-	<int-jms:outbound-channel-adapter channel="requests" destination-name="topic.collector" pub-sub-domain="true" />
--->
+	<bean id="queue.requests" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="COLLECTOR.REQUESTS" />
+	</bean>
 	
-	<int:channel id="requestProcessor" />
-	<int:channel id="answers" />
+	<!-- this is the Message Driven POJO (MDP) -->
+	<bean id="requestListener" class="com.neuralnoise.integration.RequestListener" />
 
-	<int:bridge input-channel="requests" output-channel="requestProcessor">
-		<int:poller fixed-delay="1000" />
-	</int:bridge>
-
-	<int-stream:stdout-channel-adapter id="answers" />
+	<!-- and this is the message listener container -->
+	<bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<property name="destination" ref="queue.requests"/>
+		<property name="messageListener" ref="requestListener" />
+	</bean>
 	
-	<int:poller default="true" fixed-rate="1000"/>
-
 </beans>

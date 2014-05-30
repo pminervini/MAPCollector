@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-import com.neuralnoise.listener.RequestHandler;
+//import com.neuralnoise.integration.RequestHandler;
 import com.neuralnoise.model.Request;
 
 @Service
@@ -18,9 +18,9 @@ public class RequestServiceImpl implements RequestService, ApplicationContextAwa
     
 	@Override
 	public void send(Request request) {
-		System.out.println("Handling request " + request + " ..");
-		RequestHandler rh = (RequestHandler) getApplicationContext().getBean("collector");
-		rh.placeRequest(request);
+		//System.out.println("Handling request " + request + " ..");
+		//RequestHandler rh = (RequestHandler) getApplicationContext().getBean("collector");
+		//rh.placeRequest(request);
 	}
 	
 

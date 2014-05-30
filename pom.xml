@@ -34,8 +34,8 @@
 		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 
 		<!-- Spring -->
-		<spring-framework.version>4.0.1.RELEASE</spring-framework.version>
-		<spring.integration.version>2.2.5.RELEASE</spring.integration.version>
+		<spring-framework.version>4.0.5.RELEASE</spring-framework.version>
+		<spring.integration.version>3.0.1.RELEASE</spring.integration.version>
 		<servlet-api.version>2.5</servlet-api.version>
 
 		<!-- Integration -->
