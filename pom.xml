@@ -46,6 +46,11 @@
 		<opennlp.uima.version>1.5.3</opennlp.uima.version>
 		<opennlp.maxent.version>3.0.3</opennlp.maxent.version>
 
+		<!-- GeoLocation -->
+		<httpclient.version>4.0</httpclient.version>
+		<nominatim.version>2.0.2</nominatim.version>
+		<geocoder.version>0.15</geocoder.version>
+
 		<!-- Logging -->
 		<logback.version>1.1.0</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -186,7 +191,24 @@
 			<artifactId>opennlp-maxent</artifactId>
 			<version>${opennlp.maxent.version}</version>
 		</dependency>
-
+		
+				<!-- GeoLocation -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.dudie</groupId>
+			<artifactId>nominatim-api</artifactId>
+			<version>${nominatim.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.geocoder-java</groupId>
+			<artifactId>geocoder-java</artifactId>
+			<version>${geocoder.version}</version>
+		</dependency>
+		
 		<!-- Logging with SLF4J & LogBack -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
