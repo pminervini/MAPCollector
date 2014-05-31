@@ -41,13 +41,19 @@
 		<constructor-arg value="COLLECTOR.REQUESTS" />
 	</bean>
 	
+	<bean id="queue.answers" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="COLLECTOR.ANSWERS" />
+	</bean>
+	
 	<!-- The gateway responsible for request/reply semantics -->
 	<int-jms:inbound-gateway request-channel="requests" request-destination="queue.requests"/>
+	<int-jms:outbound-gateway request-channel="answers" request-destination="queue.answers"/>
+	
 	<int:channel id="requests"/>
 	<int:channel id="answers"/>
 	
 	<!-- The chain of processing -->
-	<int:chain input-channel="requests">
+	<int:chain input-channel="requests" output-channel="answers">
 		<int:json-to-object-transformer type="com.neuralnoise.integration.Request" />
 		<int:service-activator method="handle">
 			<bean class="com.neuralnoise.integration.RequestHandler" />
