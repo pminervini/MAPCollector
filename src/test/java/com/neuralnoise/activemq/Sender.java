@@ -7,10 +7,8 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.springframework.integration.message.GenericMessage;
 
 import com.neuralnoise.model.Request;
 import com.neuralnoise.model.Request.RequestType;
