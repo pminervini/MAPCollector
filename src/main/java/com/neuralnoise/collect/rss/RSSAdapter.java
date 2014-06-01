@@ -8,19 +8,19 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 import com.neuralnoise.collect.ICollectible;
-import com.neuralnoise.collect.ICollector;
+import com.neuralnoise.collect.IAdapter;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
-public class RSSCollector implements ICollector {
+public class RSSAdapter implements IAdapter {
 	
-	private static final Logger log = LoggerFactory.getLogger(RSSCollector.class);
+	private static final Logger log = LoggerFactory.getLogger(RSSAdapter.class);
 	
 	private final String feed;
 	
-	public RSSCollector(String feed) {
+	public RSSAdapter(String feed) {
 		this.feed = feed;
 	}
 	

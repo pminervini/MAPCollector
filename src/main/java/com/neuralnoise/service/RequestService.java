@@ -1,9 +1,10 @@
 package com.neuralnoise.service;
 
-import com.neuralnoise.model.Request;
+import com.neuralnoise.integration.util.CAnswer;
+import com.neuralnoise.integration.util.CRequest;
 
 public interface RequestService {
 	
-	public void send(Request message);
+	public CAnswer process(CRequest request);
 	
 }
