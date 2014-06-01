@@ -22,7 +22,7 @@ public class RequestController {
 
 	@RequestMapping(value = "/request", method = RequestMethod.POST)
 	public @ResponseBody
-	CAnswer postMessage(HttpServletRequest request, HttpServletResponse response) {
+	CAnswer postMessage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		final String resource = request.getParameter("resource");
 		final String adapter = request.getParameter("adapter");
@@ -33,7 +33,7 @@ public class RequestController {
 		
 		CAnswer canswer = requestService.process(crequest);
 		
-		response.setStatus(HttpStatus.CREATED.value());
+		response.setStatus(HttpStatus.FOUND.value());
 		
 		return canswer;
 	}
