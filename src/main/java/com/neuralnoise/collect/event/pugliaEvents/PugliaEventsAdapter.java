@@ -1,13 +1,12 @@
 package com.neuralnoise.collect.event.pugliaEvents;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,10 +53,8 @@ public class PugliaEventsAdapter extends RSSAdapter {
 				dEndDate = format.parse(sDates.substring(idxDate + 4, lenDate));
 			}
 			
-			Calendar startDate = new GregorianCalendar(), endDate = new GregorianCalendar();
-			startDate.setTime(dStartDate);
-			endDate.setTime(dEndDate);
-			
+			DateTime startDate = new DateTime(dStartDate), endDate = new DateTime(dEndDate);
+
 			Location location = null;
 			
 			List<Location> locations = Lists.newLinkedList();
@@ -80,7 +77,7 @@ public class PugliaEventsAdapter extends RSSAdapter {
 		PugliaEventsAdapter pe = new PugliaEventsAdapter("http://www.pugliaevents.it/it/feeds/category/4");
 		Collection<ICollectible> events = pe.collect();
 		for (ICollectible event : events) {
-			System.out.println("Event: " + event);
+			log.info("Event: " + event);
 		}
 	}
 

@@ -1,6 +1,6 @@
 package com.neuralnoise.collect.event;
 
-import java.util.Calendar;
+import org.joda.time.DateTime;
 
 import com.neuralnoise.collect.ICollectible;
 import com.neuralnoise.integration.geo.Location;
@@ -8,10 +8,10 @@ import com.neuralnoise.integration.geo.Location;
 public class Event implements ICollectible {
 
 	private final String name, description;
-	private final Calendar startDate, endDate;
+	private final DateTime startDate, endDate;
 	private final Location location;
 	
-	public Event(String name, Calendar startDate, Calendar endDate, String description, Location location) {
+	public Event(String name, DateTime startDate, DateTime endDate, String description, Location location) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -23,11 +23,11 @@ public class Event implements ICollectible {
 		return name;
 	}
 
-	public Calendar getStartDate() {
+	public DateTime getStartDate() {
 		return startDate;
 	}
 
-	public Calendar getEndDate() {
+	public DateTime getEndDate() {
 		return endDate;
 	}
 

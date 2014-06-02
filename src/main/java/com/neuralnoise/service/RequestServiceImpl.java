@@ -42,7 +42,7 @@ public class RequestServiceImpl implements RequestService {
 			cEvent.setEndDate(event.getEndDate());
 			cEvent.setLocation(event.getLocation());
 		
-			System.out.println("Sending cEvent: " + cEvent);
+			log.info("Sending cEvent: " + cEvent);
 			
 			events.add(cEvent);
 		}

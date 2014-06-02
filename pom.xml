@@ -28,9 +28,13 @@
 
 		<!-- Rome -->
 		<rome.version>1.0</rome.version>
+		
+		<!-- Dates -->
+		<jodatime.version>2.3</jodatime.version>
 
 		<!-- Jackson -->
 		<jackson2.version>2.3.2</jackson2.version>
+		<jackson2.joda.version>2.3.1</jackson2.joda.version>
 		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 
 		<!-- Spring -->
@@ -84,6 +88,13 @@
 			<version>${rome.version}</version>
 		</dependency>
 
+		<!-- Date and Time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${jodatime.version}</version>
+		</dependency>
+
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -100,7 +111,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson2.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-joda</artifactId>
+			<version>${jackson2.joda.version}</version>
+		</dependency>
 
 		<!-- Spring -->
 		<dependency>

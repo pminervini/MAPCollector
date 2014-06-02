@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:int="http://www.springframework.org/schema/integration"
 	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
 	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
                 http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
                 http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
                 http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
@@ -14,6 +17,16 @@
 
 	<!-- Component scan to find all Spring components -->
 	<context:component-scan base-package="com.neuralnoise" />
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper" ref="customObjectMapper" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<bean id="customObjectMapper" class="com.neuralnoise.util.CustomObjectMapper" />
 
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="order" value="1" />
@@ -52,13 +65,15 @@
 	<int:channel id="requests"/>
 	<int:channel id="answers"/>
 	
+	<bean id="jsonObjectMapper" class="com.neuralnoise.util.CustomObjectMapper" factory-method="getMapper"/>
+	
 	<!-- The chain of processing -->
 	<int:chain input-channel="requests" output-channel="answers">
-		<int:json-to-object-transformer type="com.neuralnoise.integration.util.CRequest" />
+		<int:json-to-object-transformer type="com.neuralnoise.integration.util.CRequest" object-mapper="jsonObjectMapper" />
 		<int:service-activator method="handle">
 			<bean class="com.neuralnoise.integration.RequestHandler" />
 		</int:service-activator>
-		<int:object-to-json-transformer />
+		<int:object-to-json-transformer object-mapper="jsonObjectMapper" />
 	</int:chain>
 	
 </beans>
