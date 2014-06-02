@@ -29,7 +29,7 @@ public class RequestController {
 		
 		CRequest crequest = new CRequest();
 		crequest.setResource(resource);
-		crequest.setAdapter(adapter);
+		crequest.setAdapterName(adapter);
 		
 		CAnswer canswer = requestService.process(crequest);
 		

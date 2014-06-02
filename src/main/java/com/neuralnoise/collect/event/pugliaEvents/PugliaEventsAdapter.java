@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Lists;
 import com.neuralnoise.collect.ICollectible;
 import com.neuralnoise.collect.event.Event;
-import com.neuralnoise.collect.rss.RSSCollectible;
 import com.neuralnoise.collect.rss.RSSAdapter;
+import com.neuralnoise.collect.rss.RSSCollectible;
 import com.neuralnoise.geo.GeoLocationUtils;
 import com.neuralnoise.integration.geo.Location;
 
@@ -59,7 +59,12 @@ public class PugliaEventsAdapter extends RSSAdapter {
 			endDate.setTime(dEndDate);
 			
 			Location location = null;
-			List<Location> locations = GeoLocationUtils.query(sAddress + ", Puglia", "it");
+			
+			List<Location> locations = Lists.newLinkedList();
+			
+			locations.addAll(GeoLocationUtils.query(sAddress + ", Puglia", "it"));
+			locations.addAll(GeoLocationUtils.query(sAddress.replace("(LE)", "Lecce").replace("(BA)", "Bari").replace("(FG)", "Foggia") + ", Puglia", "it"));
+			
 			if (locations != null && locations.size() > 0) {
 				location = locations.get(0);
 			}

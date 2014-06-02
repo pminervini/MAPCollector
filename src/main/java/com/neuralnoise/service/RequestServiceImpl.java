@@ -24,7 +24,7 @@ public class RequestServiceImpl implements RequestService {
 	public CAnswer process(CRequest request) throws Exception {
 		
 		AdapterFactory af = new AdapterFactory();
-		IAdapter adapter = af.adapterName(request.getAdapter()).resource(request.getResource()).build();
+		IAdapter adapter = af.adapterName(request.getAdapterName()).resource(request.getResource()).build();
 		
 		Collection<ICollectible> collectibles = adapter.collect();
 		
@@ -41,6 +41,8 @@ public class RequestServiceImpl implements RequestService {
 			cEvent.setStartDate(event.getStartDate());
 			cEvent.setEndDate(event.getEndDate());
 			cEvent.setLocation(event.getLocation());
+		
+			System.out.println("Sending cEvent: " + cEvent);
 			
 			events.add(cEvent);
 		}
