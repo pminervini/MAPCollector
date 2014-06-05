@@ -21,7 +21,7 @@ public class TestAdapter implements IAdapter {
 	public Collection<ICollectible> collect() throws Exception {
 		final Collection<ICollectible> events = Lists.newLinkedList();
 		DateTime dt = new DateTime();
-		Event event = new Event("Test name", dt, dt, "Test content", null);
+		Event event = new Event("Test name", dt, dt, "Test content", "test", null);
 		events.add(event);
 		return events;
 	}

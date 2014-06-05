@@ -1,6 +1,6 @@
 package com.neuralnoise.integration.util;
 
-public class CEntry {
+public abstract class CEntry {
 	
 	protected String content;
 	

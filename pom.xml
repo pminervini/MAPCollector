@@ -26,6 +26,9 @@
 		<!-- Apache Commons HTTPClient -->
 		<commons-httpclient.version>4.3.3</commons-httpclient.version>
 
+		<!-- Apache POI -->
+		<apache-poi.version>3.9</apache-poi.version>
+
 		<!-- Rome -->
 		<rome.version>1.0</rome.version>
 		
@@ -79,6 +82,18 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${commons-httpclient.version}</version>
+		</dependency>
+		
+		<!-- Used to populate the database from XSLX files -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${apache-poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${apache-poi.version}</version>
 		</dependency>
 
 		<!-- Rome -->

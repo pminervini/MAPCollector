@@ -1,5 +1,6 @@
 package com.neuralnoise.collect;
 
+import com.neuralnoise.collect.entity.cna.CNAAdapter;
 import com.neuralnoise.collect.event.pugliaEvents.PugliaEventsAdapter;
 import com.neuralnoise.collect.event.test.TestAdapter;
 
@@ -25,6 +26,9 @@ public class AdapterFactory {
 		switch (this.adapterName) {
 		case "PugliaEvents": {
 			adapter = new PugliaEventsAdapter(resource);
+		} break;
+		case "CNA": {
+			adapter = new CNAAdapter(resource);
 		} break;
 		case "Test": {
 			adapter = new TestAdapter();

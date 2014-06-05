@@ -1,6 +1,6 @@
 package com.neuralnoise.integration.util;
 
-public class CNamedEntry extends CEntry {
+public abstract class CNamedEntry extends CEntry {
 
 	private String name;
 	

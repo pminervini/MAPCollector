@@ -7,15 +7,16 @@ import com.neuralnoise.integration.geo.Location;
 
 public class Event implements ICollectible {
 
-	private final String name, description;
+	private final String name, description, type;
 	private final DateTime startDate, endDate;
 	private final Location location;
 	
-	public Event(String name, DateTime startDate, DateTime endDate, String description, Location location) {
+	public Event(String name, DateTime startDate, DateTime endDate, String description, String type, Location location) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.description = description;
+		this.type = type;
 		this.location = location;
 	}
 
@@ -33,6 +34,10 @@ public class Event implements ICollectible {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 	public Location getLocation() {

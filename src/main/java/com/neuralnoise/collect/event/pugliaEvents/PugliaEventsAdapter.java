@@ -66,7 +66,7 @@ public class PugliaEventsAdapter extends RSSAdapter {
 				location = locations.get(0);
 			}
 			
-			Event event = new Event(title, startDate, endDate, description, location);
+			Event event = new Event(title, startDate, endDate, description, "event", location);
 			events.add(event);
 		}
 		
