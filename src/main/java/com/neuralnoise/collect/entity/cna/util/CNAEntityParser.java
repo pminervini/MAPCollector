@@ -12,11 +12,11 @@ import com.neuralnoise.collect.entity.Entity;
 import com.neuralnoise.geo.GeoLocationUtils;
 import com.neuralnoise.integration.geo.Location;
 
-public class EntityParser {
+public class CNAEntityParser {
 
-	private static final Logger log = LoggerFactory.getLogger(EntityParser.class);
+	private static final Logger log = LoggerFactory.getLogger(CNAEntityParser.class);
 
-	private EntityParser() { }
+	private CNAEntityParser() { }
 
 	public static Entity parse(Map<String, String> map) throws Exception {
 		String type = null, name = null, description = null;

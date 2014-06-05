@@ -21,13 +21,18 @@
 		<guava.version>16.0.1</guava.version>
 
 		<!-- Apache Commons -->
-		<commons.version>3.3</commons.version>
+		<commons-lang3.version>3.3.2</commons-lang3.version>
+		<commons-io.version>2.4</commons-io.version>
 
 		<!-- Apache Commons HTTPClient -->
 		<commons-httpclient.version>4.3.3</commons-httpclient.version>
 
 		<!-- Apache POI -->
 		<apache-poi.version>3.9</apache-poi.version>
+		
+		<!-- jsoup -->
+		<jsoup.version>1.7.3</jsoup.version>
+		<json-smart.version>2.0-RC3</json-smart.version>
 
 		<!-- Rome -->
 		<rome.version>1.0</rome.version>
@@ -46,7 +51,7 @@
 		<servlet-api.version>2.5</servlet-api.version>
 
 		<!-- Integration -->
-		<activemq.version>5.7.0</activemq.version>
+		<activemq.version>5.9.0</activemq.version>
 
 		<!-- OpenNLP -->
 		<opennlp.tools.version>1.5.3</opennlp.tools.version>
@@ -74,16 +79,21 @@
 
 		<!-- Apache Commons -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>${commons-httpclient.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+
 		<!-- Used to populate the database from XSLX files -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
@@ -94,6 +104,19 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>${apache-poi.version}</version>
+		</dependency>
+		
+		<!-- jsoup -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
+		</dependency>
+		<!-- json-smart -->
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>2.0-RC3</version>
 		</dependency>
 
 		<!-- Rome -->
@@ -180,7 +203,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 		<!-- Spring Integration -->
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
@@ -201,7 +223,17 @@
 		<!-- ActiveMQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
+			<artifactId>activemq-client</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+			<version>${activemq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-spring</artifactId>
 			<version>${activemq.version}</version>
 		</dependency>
 
@@ -223,11 +255,6 @@
 		</dependency>
 
 		<!-- GeoLocation -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>${httpclient.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>fr.dudie</groupId>
 			<artifactId>nominatim-api</artifactId>
@@ -251,6 +278,11 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
 		</dependency>
 		
 

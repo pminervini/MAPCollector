@@ -18,7 +18,7 @@ import com.google.common.collect.Maps;
 import com.neuralnoise.collect.IAdapter;
 import com.neuralnoise.collect.ICollectible;
 import com.neuralnoise.collect.entity.Entity;
-import com.neuralnoise.collect.entity.cna.util.EntityParser;
+import com.neuralnoise.collect.entity.cna.util.CNAEntityParser;
 
 public class CNAAdapter implements IAdapter {
 	
@@ -80,7 +80,7 @@ public class CNAAdapter implements IAdapter {
 		Collection<ICollectible> entities = Lists.newLinkedList();
 		for (Map<String, String> map : content) {
 			log.info("Content: " + map);
-			Entity entity = EntityParser.parse(map);
+			Entity entity = CNAEntityParser.parse(map);
 			
 			if (entity != null) {
 				entities.add(entity);

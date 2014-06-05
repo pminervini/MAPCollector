@@ -22,7 +22,7 @@ public class RequestHandler {
 	public CAnswer handle(CRequest request) throws Exception {
 		log.info("Received request: " + request);
 		CAnswer answer = requestService.process(request);
-		log.info("Returning answers (" + (answer.getEvents() != null ? answer.getEvents().size() : 0) + " events ..");
+		log.info("Returning answers (" + (answer.getEvents() != null ? answer.getEvents().size() : 0) + " events) ..");
 		return answer;
 	}
 
