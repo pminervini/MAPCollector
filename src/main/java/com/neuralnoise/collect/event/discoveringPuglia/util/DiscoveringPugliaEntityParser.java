@@ -39,7 +39,7 @@ public class DiscoveringPugliaEntityParser {
 			type = "organization";
 		} break;
 		case "natura e sport": {
-			type = "organization";
+			//
 		} break;
 		case "riti e tradizioni": {
 			type = "organization";
