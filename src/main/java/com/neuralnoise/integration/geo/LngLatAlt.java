@@ -54,4 +54,10 @@ public class LngLatAlt {
 	public void setAltitude(double altitude) {
 		this.altitude = altitude;
 	}
+	
+	@Override
+	public String toString() {
+		return "LngLatAlt [longitude=" + longitude + ", latitude=" + latitude + ", altitude=" + altitude + "]";
+	}
+	
 }

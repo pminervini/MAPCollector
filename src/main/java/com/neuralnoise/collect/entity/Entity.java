@@ -30,5 +30,10 @@ public class Entity implements ICollectible {
 	public Location getLocation() {
 		return location;
 	}
+	
+	@Override
+	public String toString() {
+		return "Entity [name=" + name + ", description=" + description + ", type=" + type + ", location=" + location + "]";
+	}
 
 }

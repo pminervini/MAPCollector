@@ -25,4 +25,10 @@ public class Point extends GeoJsonObject {
 	public void setCoordinates(LngLatAlt coordinates) {
 		this.coordinates = coordinates;
 	}
+	
+	@Override
+	public String toString() {
+		return "Point [coordinates=" + coordinates + "]";
+	}
+	
 }

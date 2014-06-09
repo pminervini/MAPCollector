@@ -45,6 +45,9 @@
 		<jackson2.joda.version>2.3.1</jackson2.joda.version>
 		<jaxb-impl.version>2.2.7</jaxb-impl.version>
 
+		<!-- Woodstox -->
+		<woodstox.version>4.2.0</woodstox.version>
+
 		<!-- Spring -->
 		<spring-framework.version>4.0.5.RELEASE</spring-framework.version>
 		<spring.integration.version>4.0.2.RELEASE</spring.integration.version>
@@ -153,6 +156,13 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-joda</artifactId>
 			<version>${jackson2.joda.version}</version>
+		</dependency>
+		
+		<!-- Woodstox -->
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>woodstox-core-asl</artifactId>
+			<version>${woodstox.version}</version>
 		</dependency>
 
 		<!-- Spring -->

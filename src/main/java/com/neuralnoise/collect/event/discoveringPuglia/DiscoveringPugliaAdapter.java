@@ -11,7 +11,6 @@ import com.google.common.collect.Lists;
 import com.neuralnoise.collect.IAdapter;
 import com.neuralnoise.collect.ICollectible;
 import com.neuralnoise.collect.entity.Entity;
-import com.neuralnoise.collect.entity.cna.util.CNAEntityParser;
 import com.neuralnoise.collect.event.discoveringPuglia.util.DiscoveringPugliaEntityParser;
 import com.neuralnoise.collect.event.discoveringPuglia.util.DiscoveringPugliaUtils;
 

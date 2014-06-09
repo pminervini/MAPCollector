@@ -1,6 +1,7 @@
 package com.neuralnoise.collect;
 
 import com.neuralnoise.collect.entity.cna.CNAAdapter;
+import com.neuralnoise.collect.entity.musei.MuseiV3Adapter;
 import com.neuralnoise.collect.event.discoveringPuglia.DiscoveringPugliaAdapter;
 import com.neuralnoise.collect.event.pugliaEvents.PugliaEventsAdapter;
 import com.neuralnoise.collect.event.test.TestAdapter;
@@ -33,6 +34,9 @@ public class AdapterFactory {
 		} break;
 		case "DiscoveringPuglia": {
 			adapter = new DiscoveringPugliaAdapter(resource);
+		} break;
+		case "MuseiV3": {
+			adapter = new MuseiV3Adapter(resource);
 		} break;
 		case "Test": {
 			adapter = new TestAdapter();
